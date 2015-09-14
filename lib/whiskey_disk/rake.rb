@@ -7,6 +7,7 @@ namespace :deploy do
     @whiskey_disk = WhiskeyDisk.new
     @whiskey_disk.ensure_main_parent_path_is_present
     @whiskey_disk.ensure_config_parent_path_is_present      if @whiskey_disk.has_config_repo?
+    @whiskey_disk.run_pre_setup_hooks
     @whiskey_disk.checkout_main_repository
     @whiskey_disk.checkout_configuration_repository         if @whiskey_disk.has_config_repo?
     @whiskey_disk.update_main_repository_checkout
@@ -23,6 +24,7 @@ namespace :deploy do
   desc "Deploy now."
   task :now do
     @whiskey_disk = WhiskeyDisk.new(:staleness_checks => true)
+    @whiskey_disk.run_pre_deploy_hooks
     @whiskey_disk.update_main_repository_checkout
     @whiskey_disk.update_configuration_repository_checkout  if @whiskey_disk.has_config_repo?
     @whiskey_disk.refresh_configuration                     if @whiskey_disk.has_config_repo?
