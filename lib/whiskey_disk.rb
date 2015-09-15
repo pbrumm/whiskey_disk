@@ -312,13 +312,11 @@ class WhiskeyDisk
   def run_pre_setup_hooks
     needs(:deploy_to)
     run_script(setting(:pre_setup_script))
-    run_rake_task(setting(:deploy_to), "deploy:pre_setup")
   end
   
   def run_pre_deploy_hooks
     needs(:deploy_to)
     run_script(setting(:pre_deploy_script))
-    run_rake_task(setting(:deploy_to), "deploy:pre_deploy")
   end
 
   def run_post_setup_hooks
